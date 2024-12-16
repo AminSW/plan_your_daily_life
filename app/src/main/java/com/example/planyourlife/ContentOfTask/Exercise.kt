@@ -12,23 +12,6 @@ import com.example.planyourlife.ViewOfTask.CheckBoxItemWithNumber
 import com.example.planyourlife.ViewOfTask.CheckBoxItemWithTime
 import com.example.planyourlife.ViewOfTask.TaskListScreen
 
-@Composable
-fun ExerciseTableScreen()
-{
-    // Checkbox durumlarını yönetmek için bir liste
-    val exerciseList = remember {
-        mutableStateListOf(
-            Exercise("exercise 1", 2, exerciseWithTime = true, isCompleted = false) as TaskItem,
-            Exercise("product 2", 2, exerciseWithTime = true, isCompleted = false) as TaskItem,
-            Exercise("product 3", 2, exerciseWithTime = true, isCompleted = false) as TaskItem,
-            Exercise("product 4", 2, exerciseWithTime = false, isCompleted = false) as TaskItem,
-        )
-    }
-
-    val workout = Workout(exerciseList = exerciseList, id = 1, name = "shopping")
-    workout.ShowTaskContent()
-
-}
 
 class Workout(
     val exerciseList: MutableList<TaskItem>, id: Int, name: String
