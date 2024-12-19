@@ -1,11 +1,11 @@
 package com.example.planyourlife.Tasks
 
 import androidx.compose.runtime.Composable
+import com.example.planyourlife.Times.Time
 
 open class TaskOfPlan(
-    id: Int,
-    name: String,
-    //time: Time
+    private val id: Int,
+    val name: String,
 ): Task {
     @Composable
     override fun ShowTaskContent()
@@ -17,5 +17,15 @@ open class TaskOfPlan(
     {
         TODO("Not yet implemented")
     }
+
+//    fun getId(): Int
+//    {
+//        return id
+//    }
+//
+//    fun getName(): String
+//    {
+//        return name
+//    }
 
 }
