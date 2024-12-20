@@ -8,8 +8,9 @@ class TimeLine(private val start: Float, private val end: Float)
 
         while (index <= end)
         {
+            if(index == end) break
             duration.add(index)
-            index++
+            index += 0.5f
         }
 
         return duration
