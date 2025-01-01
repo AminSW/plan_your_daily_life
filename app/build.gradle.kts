@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    //alias(libs.plugins.kotlin.serialization)
 
-    //id("androidx.navigation.safeargs")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -76,29 +76,18 @@ dependencies {
     implementation(libs.androidx.compose.navigation)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation("androidx.lifecycle: lifecycle-viewmodel:2.5.1")
-    implementation("androidx.activity: activity-ktx:1.6.1")
-    implementation("androidx.compose.runtime: runtime-livedata:1.5.4")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation ("com.google.code.gson:gson:2.10")
 
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.5.0")
-    implementation("androidx.activity:activity-compose:1.7.2")
-//    val nav_version = "2.8.0"
-//
-//    // Jetpack Compose integration
-//    implementation("androidx.navigation:navigation-compose:$nav_version")
-//
-//    // Views/Fragments integration
-//    implementation("androidx.navigation:navigation-fragment:$nav_version")
-//    implementation("androidx.navigation:navigation-ui:$nav_version")
-//
-//    // Feature module support for Fragments
-//    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
-//
-//    // Testing Navigation
-//    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
-//
-//    //val nav_version = "2.8.0"
-//    //classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
+    implementation("androidx.activity:activity-ktx:1.6.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
+
+    implementation("androidx.activity:activity-compose:1.9.3")
+
+    implementation(kotlin("script-runtime"))
+
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 
 }

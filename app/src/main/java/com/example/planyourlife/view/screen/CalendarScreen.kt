@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -37,6 +38,7 @@ import java.time.YearMonth
 import java.time.format.TextStyle
 import java.util.Locale
 
+
 @Composable
 fun createExerciseTask(): Workout {
     // Checkbox durumlarını yönetmek için bir liste
@@ -49,7 +51,7 @@ fun createExerciseTask(): Workout {
         )
     }
 
-    val workout = Workout(exerciseList = exerciseList, id = 1, name = "shopping")
+    val workout = Workout(exerciseList = exerciseList, id = 1, name = "shopping", timeline = com.example.planyourlife.Times.TimeLine(10f, 12f))
     return workout
 
 }
@@ -92,7 +94,6 @@ fun createDays(): HashMap<String, Day> {
             )
         )
     )
-
 
     return days
 }
@@ -213,17 +214,33 @@ fun DayCell(day: Int?, isToday: Boolean, onClick: () -> Unit) {
     }
 }
 
+fun getDayOfMonth(dateString: String): Int {
+    val date = LocalDate.parse(dateString)
+    return date.dayOfMonth
+}
+
+fun getMonthOfYear(dateString: String): Int {
+    val date = LocalDate.parse(dateString)
+    return date.monthValue
+}
+
+val lastDayOfMonths = intArrayOf(31,28,31,30,31,30,31,31,30,31,30,31)
+
 @Composable
 fun DayDetailsScreen(date: String?)
 {
     val days = createDays()
     val selectedDay = days[date]
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Seçilen Gün: $date", style = MaterialTheme.typography.titleLarge)
-        selectedDay?.ShowTaskContent()
+    var dayOfMonth = 1
+    var monthOfYear = 1
+    if(date != null){
+        dayOfMonth = getDayOfMonth(date)
+        monthOfYear = getMonthOfYear(date)
     }
+
+    val lastDayOfMonth = lastDayOfMonths[monthOfYear-1]
+    
+    DailyScheduleScreen(day = dayOfMonth, lastDayOfMonth = lastDayOfMonth)
+
 }
