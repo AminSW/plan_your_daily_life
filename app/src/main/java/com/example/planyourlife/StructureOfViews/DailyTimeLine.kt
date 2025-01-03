@@ -36,9 +36,10 @@ class DailyTimeLine
         while(index < length)
         {
             if(timeLineList[index].getTimeline().getStartTime() >= timeLineStartValue)
-                return timeLineList.add(index, task)
+                break
             index++
         }
+        timeLineList.add(index, task)
     }
 
     private fun controlAddingTimeLine(timeLine: TimeLine): Boolean
