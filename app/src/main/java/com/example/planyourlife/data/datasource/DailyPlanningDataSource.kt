@@ -10,12 +10,37 @@ import com.example.planyourlife.Tasks.TaskItem
 import com.example.planyourlife.Tasks.TaskOfPlanTL
 import com.example.planyourlife.Times.TimeLine
 import com.example.planyourlife.data.entity.Day
+import com.example.planyourlife.data.entity.TimeLineTask
+import com.example.planyourlife.room.TimeLineTaskDAO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
-class DailyPlanningDataSource
+class DailyPlanningDataSource(var dao: TimeLineTaskDAO)
 {
+
+    suspend fun insertDatabase()
+    {
+        val newTimeLineTask = TimeLineTask(
+            taskID = 0, // autoGenerate is true, so you can set it to 0
+            date = 1,
+            taskName = "My Task",
+            startTime = 100,
+            endTime = 110
+        )
+
+        dao.insertTask(newTimeLineTask)
+    }
+
+    suspend fun uploadAllTimeLineTasks(): List<TimeLineTask> = withContext(Dispatchers.IO) {
+        insertDatabase()
+        return@withContext dao.uploadAllTimeLimeTasks()
+    }
+
+    suspend fun uploadTimeLineTasksForDay(date: Int): List<TimeLineTask> = withContext(Dispatchers.IO) {
+        return@withContext dao.uploadTimeLimeTasksByDate(date)
+    }
+
     suspend fun createDays(): HashMap<String, Day> = withContext(Dispatchers.IO) {
 
         val exercise = createWorkout()
@@ -74,6 +99,7 @@ class DailyPlanningDataSource
         return@withContext shopping
     }
 
+
     private suspend fun createTimeLineOfDay(): DailyTimeLine = withContext(Dispatchers.IO) {
         val dailyTimeLine = DailyTimeLine()
 
@@ -115,7 +141,7 @@ class DailyPlanningDataSource
                 timeline = TimeLine(12f, 14f)
             ) as TaskOfPlanTL
         )
-        //println("bbb - ${dailyTimeLine.getTasks().get(0).getTimeline().getStartTime()}")
+
         return@withContext dailyTimeLine
     }
 
